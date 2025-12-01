@@ -1,6 +1,6 @@
 /* Program name: burger.h
  * Author: Sahar Musleh
- * Date last updated: 11/30/2025
+ * Date last updated: 12/01/2025
  * Purpose: Declares the burger class and details required to create a customisable burger.
  */
 

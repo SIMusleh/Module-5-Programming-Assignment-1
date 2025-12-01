@@ -1,7 +1,6 @@
-
 /* Program name: main.cpp
  * Author: Sahar Musleh
- * Date last updated: 11/30/2025
+ * Date last updated: 12/01/2025
  * Purpose: Placeholder main file for burger assignment. The actual main function is provided by the instructor for testing.
  */
 
@@ -22,7 +21,7 @@ int main() {
 
         std::string input;
         // Prompt user for protein type and validate input using case-insensitive map
-        std::cout << "Please enter a protein:\n";
+        std::cout << "Please enter a protein.\n";
         std::getline(std::cin, input);
         proteinType protein = BEEF;
         if (burger::stringToProtein.find(burger::toLower(input)) != burger::stringToProtein.end()) {
@@ -31,7 +30,22 @@ int main() {
             std::cout << "Invalid protein. Defaulting to Beef.\n";
         }
 
-        // Collect condiments from user until they enter -1
+        // Collect toppings first (expected order)
+        toppingType tops[7]; int tCount = 0;
+        std::cout << "Please enter a topping. Enter -1 to move to the next step\n";
+        while (true) {
+            std::getline(std::cin, input);
+            if (input == "-1") break;
+            std::string lower = burger::toLower(input);
+            if (burger::stringToTopping.find(lower) != burger::stringToTopping.end()) {
+                tops[tCount++] = burger::stringToTopping[lower];
+            } else {
+                std::cout << "Invalid topping. Try again.\n";
+            }
+            std::cout << "Please enter a topping. Enter -1 to move to the next step\n";
+        }
+
+        // Collect condiments next
         condimentType conds[7]; int cCount = 0;
         std::cout << "Please enter a Condiment. Enter -1 to move to the next step\n";
         while (true) {
@@ -43,23 +57,11 @@ int main() {
             } else {
                 std::cout << "Invalid condiment. Try again.\n";
             }
+            std::cout << "Please enter a Condiment. Enter -1 to move to the next step\n";
         }
 
-        // Collect toppings from user until they enter -1
-        toppingType tops[7]; int tCount = 0;
-        std::cout << "Please enter a Topping. Enter -1 to move to the next step\n";
-        while (true) {
-            std::getline(std::cin, input);
-            if (input == "-1") break;
-            std::string lower = burger::toLower(input);
-            if (burger::stringToTopping.find(lower) != burger::stringToTopping.end()) {
-                tops[tCount++] = burger::stringToTopping[lower];
-            } else {
-                std::cout << "Invalid topping. Try again.\n";
-            }
-        }
- // Prompt user for bun type and validate input
-        std::cout << "Please enter a bun:\n";
+        // Prompt user for bun type and validate input
+        std::cout << "Please enter a bun.\n";
         std::getline(std::cin, input);
         bunType bun = BRIOCHE;
         if (burger::stringToBun.find(burger::toLower(input)) != burger::stringToBun.end()) {
@@ -67,7 +69,7 @@ int main() {
         }
 
         // Prompt user for cheese type and validate input
-        std::cout << "Please enter a cheese:\n";
+        std::cout << "Please enter a cheese.\n";
         std::getline(std::cin, input);
         cheeseType cheese = CHEDDAR;
         if (burger::stringToCheese.find(burger::toLower(input)) != burger::stringToCheese.end()) {
@@ -76,10 +78,10 @@ int main() {
 
         // Create burger object with user-selected options
         burger b(protein, conds, cCount, tops, tCount, bun, cheese, patties);
-        
+
         // Display the details of the created burger
         std::cout << b.tostring() << "\n";
-        
+
         // Menu to allow user to edit burger after creation (options 1–7)
         int choice;
         do {
@@ -89,14 +91,13 @@ int main() {
             std::cin.ignore();
 
             if (choice == 1) {
-                // Handle protein change
-                std::cout << "Please enter a protein:\n";
+                std::cout << "Please enter a protein.\n";
                 std::getline(std::cin, input);
                 if (burger::stringToProtein.find(burger::toLower(input)) != burger::stringToProtein.end()) {
                     b.setProtein(burger::stringToProtein[burger::toLower(input)]);
                 }
             } else if (choice == 2) {
-            std::cout << "Enter new number of patties:\n";
+                std::cout << "Enter new number of patties:\n";
                 std::cin >> patties;
                 std::cin.ignore();
                 b.setNumPatties(patties);
@@ -112,13 +113,13 @@ int main() {
                 }
                 b.setToppings(tops, tCount);
             } else if (choice == 4) {
-                std::cout << "Enter new cheese:\n";
+                std::cout << "Enter new cheese.\n";
                 std::getline(std::cin, input);
                 if (burger::stringToCheese.find(burger::toLower(input)) != burger::stringToCheese.end()) {
                     b.setCheese(burger::stringToCheese[burger::toLower(input)]);
                 }
             } else if (choice == 5) {
-                std::cout << "Enter new bun:\n";
+                std::cout << "Enter new bun.\n";
                 std::getline(std::cin, input);
                 if (burger::stringToBun.find(burger::toLower(input)) != burger::stringToBun.end()) {
                     b.setBun(burger::stringToBun[burger::toLower(input)]);
@@ -136,7 +137,7 @@ int main() {
                 b.setCondiments(conds, cCount);
             }
         } while (choice != 7);
-        
+
         // Add burger to orders list
         orders.push_back(b);
 
