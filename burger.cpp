@@ -2,13 +2,11 @@
  * Author: Sahar Musleh
  * Date last updated: 11/30/2025
  * Purpose: Implements the burger class functionality such as pricing computation, vegetarian check, and formatting.
- */
-
+ */ 
 #include "burger.h"
 #include <iostream>
-#include <map>
-#include <algorithm>
 #include <cctype>
+#include <algorithm>
 
 // Part 2: Initialize static maps
 std::map<proteinType, std::string> burger::proteinToString = {
@@ -49,8 +47,6 @@ std::map<std::string, cheeseType> burger::stringToCheese = {
 // Converts a string to lowercase for case-insensitive comparisons
 std::string burger::toLower(const std::string &input) {
     std::string result = input;
-    std::transform(result.begin(), result.end(), result.begin(),
-                    { return std::tolower(c); });
-
+    std::transform(result.begin(), result.end(), result.begin(), [](unsigned char c){ return std::tolower(c); });
     return result;
 }
