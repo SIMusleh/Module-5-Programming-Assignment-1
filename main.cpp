@@ -97,8 +97,46 @@ int main() {
                 } else {
                     std::cout << "Invalid protein.\n";
                 }
+            } else if (choice == 2) {
+                std::cout << "Enter new number of patties: ";
+                std::cin >> patties;
+                std::cin.ignore();
+                b.setNumPatties(patties);
+            } else if (choice == 3) {
+                tCount = 0;
+                std::cout << "Enter new toppings. Enter -1 to stop.\n";
+                while (true) {
+                    std::getline(std::cin, input);
+                    if (input == "-1") break;
+                    if (burger::stringToTopping.find(burger::toLower(input)) != burger::stringToTopping.end()) {
+                        tops[tCount++] = burger::stringToTopping[burger::toLower(input)];
+                    }
+                }
+                b.setToppings(tops, tCount);
+            } else if (choice == 4) {
+                std::cout << "Enter new cheese: ";
+                std::getline(std::cin, input);
+                if (burger::stringToCheese.find(burger::toLower(input)) != burger::stringToCheese.end()) {
+                    b.setCheese(burger::stringToCheese[burger::toLower(input)]);
+                }
+            } else if (choice == 5) {
+                std::cout << "Enter new bun: ";
+                std::getline(std::cin, input);
+                if (burger::stringToBun.find(burger::toLower(input)) != burger::stringToBun.end()) {
+                    b.setBun(burger::stringToBun[burger::toLower(input)]);
+                }
+            } else if (choice == 6) {
+                cCount = 0;
+                std::cout << "Enter new condiments. Enter -1 to stop.\n";
+                while (true) {
+                    std::getline(std::cin, input);
+                    if (input == "-1") break;
+                    if (burger::stringToCondiment.find(burger::toLower(input)) != burger::stringToCondiment.end()) {
+                        conds[cCount++] = burger::stringToCondiment[burger::toLower(input)];
+                    }
+                }
+                b.setCondiments(conds, cCount);
             }
-            // Similar logic for other options (2–6)
         } while (choice != 7);
 
         // Add burger to orders list
